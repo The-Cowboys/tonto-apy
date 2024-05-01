@@ -1,17 +1,8 @@
-from fastapi import FastAPI
-from typing import Union
+from fastapi import APIRouter
 
 
-app = FastAPI()
+api_router = APIRouter()
 
+# Aca van todas las URLs que dirigen a las apps
 
-@app.get("/")
-def read_root():
-    return {"Funciono": "Mas bien loquita"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-# prueba
+# api_router.include_router(  archivo  . objeto APIRouter , prefix="/ruta", tags=["apodo"])
