@@ -3,7 +3,7 @@ import datetime
 
 from .bd_coneccion import Base
 
-class User(Base):
+class Usuario(Base):
     # nombre de la tabla a la que apunta este modelo
     __tablename__ = "usuarios"
 
