@@ -2,13 +2,13 @@ estructura básica
 
 apps (carpeta con todas las apps del proyecto)
 
-    tontos (carpeta que contienen todos los archivos de una app)
+    usuario (carpeta que contienen todos los archivos de una app)
         __init__.py
         routers.py        (maneja lo que hacen las  URLs)
         models.py         (los modelos de la aplicación)
         ...
 
-    usuario
+    títulos
         __init__.py
         routers.py
         models.py

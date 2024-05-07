@@ -1,9 +1,9 @@
 # from fastapi import APIRouter
 from fastapi import FastAPI
 
-from apps.usuario import routers
+from apps.usuario import routers_usuario
 
 app = FastAPI()
 
 # Aca van todas las URLs que dirigen a las apps
-app.include_router (routers.router, prefix="/usuario", tags=["usuario"])
+app.include_router (routers_usuario.router, prefix = "/usuario", tags = ["usuario"])

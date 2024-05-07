@@ -3,14 +3,21 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 
-try:
-    from credenciales import *
 
-    SQLALCHEMY_DATABASE_URL = f"postgresql://{USUARIO}:{PASSWORD}@{HOST}/{DB_NOMBRE}"
+from credenciales import *
 
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SQLALCHEMY_DATABASE_URL = f"postgresql://{USUARIO}:{PASSWORD}@{HOST}/{DB_NOMBRE}"
 
-    Base = declarative_base()
-except SQLAlchemyError as e:
-    print("Error al conectar a la base de datos:", e)
+engine = create_engine (SQLALCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker (autocommit = False, autoflush = False, bind = engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+
+    finally:
+        db.close()
