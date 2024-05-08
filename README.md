@@ -25,7 +25,7 @@
             pip install bcrypt
 
     03-5) Crear un archivo requirements.txt
-            pip freeze > requirements.txt
+            pip install "uvicorn[standard]" 
 
 
 04) Crea el archivo principal en este caso es (main.py) y agregas este que es la configuracion minima de para iniciar un servidor 
