@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, Body
 from sqlalchemy.orm import Session
 import bcrypt
 
-from . import crud, schemas, bd_coneccion
+from usuarios import crud, schemas, bd_coneccion
 
 router = APIRouter()
 

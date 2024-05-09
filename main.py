@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from apps.usuario import routers_usuario
+from usuarios import routers_usuario
 
 app = FastAPI()
 
