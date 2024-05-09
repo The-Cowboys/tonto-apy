@@ -12,5 +12,5 @@ def crear_usuario (db: Session, usuario: schemas.Crear_usuario, hashed_password:
     # guarda la nueva instansia de usuario
     db.commit()
     # Actualiza el objeto db_usuario con los valores de la base de datos
-    db.refresh (db_usuario)
+    # db.refresh (db_usuario)
     return db_usuario

@@ -24,7 +24,10 @@
     03-4) Instalar bcrypt para el sifrado de la contraseña
             pip install bcrypt
 
-    03-5) Crear un archivo requirements.txt
+    03-5) Instalar pydantic para hacer validaciones y serealizadores
+        pip install pydantic
+
+    03-6) Crear un archivo requirements.txt
             pip freeze > requirements.txt 
 
 
