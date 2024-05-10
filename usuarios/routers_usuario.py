@@ -23,9 +23,15 @@ def crear_usuario (db: Session = Depends (bd_coneccion.get_db), usuario: schemas
         return JSONResponse(status_code = status.HTTP_400_BAD_REQUEST, content={"detail": "El usuario ya está registrado"})
 
     # Generar el hash de la contraseña
-    hashed_password = bcrypt.hashpw (usuario.password.encode ('utf-8'), bcrypt.gensalt())
+    # hashed_password = bcrypt.hashpw (usuario.password.encode ('utf-8'), bcrypt.gensalt())
+    hash = bcrypt.hashpw (usuario.password.encode ('utf-8'), bcrypt.gensalt())
+    hashed_password = hash.decode()
 
-    # Crear el usuario en la base de datos
+    print (hashed_password)
+    print (type(hashed_password))
+
+
+    # Guarda el usuario en la base de datos
     db_usuario = crud.crear_usuario (db = db, usuario = usuario, hashed_password = hashed_password)
 
     return db_usuario
