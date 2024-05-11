@@ -11,5 +11,3 @@ class Credenciales :
     DB_NOMBRE:str = os.getenv("DB_NOMBRE")
 
     DATABASE_URL = f"postgresql://{USUARIO}:{PASSWORD}@{HOST}:{POERT}/{DB_NOMBRE}"
-
-print (Credenciales.DATABASE_URL)

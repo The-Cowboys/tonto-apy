@@ -6,7 +6,7 @@ def usuario_por_mail (db: Session, email: str):
     return db.query (models.Usuario).filter (models.Usuario.email == email).first()
 
 # crea una nueva instancioa de usuario
-def crear_usuario (db: Session, usuario: schemas.Crear_usuario, hashed_password: str):
+def crear_usuario (db: Session, usuario: schemas.CrearUsuario, hashed_password: str):
     db_usuario = models.Usuario (email = usuario.email, hash = hashed_password, estado = "activacion_pendiente", rol = "usuario")
     db.add (db_usuario)
     # guarda la nueva instansia de usuario

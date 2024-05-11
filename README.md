@@ -18,7 +18,7 @@
     03-2) Instalar uvicorn para tener funciones acincronas
             pip install "uvicorn[standard]"
     
-    03-3) Istalar SQLAlchemy que es un ORM compatible con FastAPI
+    03-3) Instalar SQLAlchemy que es un ORM compatible con FastAPI
             pip install sqlalchemy
 
     03-4) Instalar bcrypt para el sifrado de la contraseña
@@ -34,7 +34,7 @@
             pip freeze > requirements.txt 
 
 
-04) Crea el archivo principal en este caso es (main.py) y agregas este que es la configuracion minima de para iniciar un servidor 
+04) Crea el archivo principal en este caso es (main.py) y agregas este que es la configuración minima de para iniciar un servidor 
         from fastapi import FastAPI
         from typing import Union
 
@@ -44,7 +44,7 @@
 
 
         # Esto es un decorador que especifica que la función siguiente manejará las solicitudes GET en la ruta /
-        # Si o si tenes que pasaarle una ruta al decorador
+        # Si o si tenes que pasarle una ruta al decorador
         @app.get("/")
         def read_root():
                 return {"Funciono": "Mas bien loquita"}
@@ -54,14 +54,22 @@
         def read_item(item_id: int, q: Union[str, None] = None):
             return {"item_id": item_id, "q": q}
 
-05) Asi ejecutas el servidor en el puerto por defecto que es el (8000) tambien pedes agregar esto al final (--host 0.0.0.0 --port 8000) para elegir el host y el puerto
+
+05) Así ejecutas el servidor en el puerto por defecto que es el (8000) también pedes agregar esto al final (--host 0.0.0.0 --port 8000) para elegir el host y el puerto
         uvicorn main:app --reload
+
+        si da algun error tambien se puede usar
+        python -m uvicorn main:app --reload
 
     El comando uvicorn main:app se refiere a:
         main: el archivo main.py (el"modulo" de Python).
         app: el objeto creado dentro de main.py con la línea app = FastAPI().
         --reload: hace que el servidor se reinicie después de cambios en el código. Esta opción solo debe ser usada en desarrollo.
 
-06) FastAPI viene con swagger incluido y se accede asi con (/docs) y tambien tiene una documentacion alternativa (/redoc)
+
+06) FastAPI viene con swagger incluido y se accede así con (/docs) y también tiene una documentación alternativa (/redoc)
         http://127.0.0.1:8000/docs
         http://127.0.0.1:8000/redoc
+
+
+07) Para agregar las credenciales de la base de datos se tienen que crear unas variavles de entorno dentro de un archivo llamado .env con todas las credenciales

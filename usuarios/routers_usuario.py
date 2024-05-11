@@ -3,12 +3,13 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 import bcrypt
 
-from usuarios import crud, schemas, bd_coneccion
+from usuarios import crud, schemas
+from settings import bd_coneccion
 
 router = APIRouter()
 
-@router.post ("/registrar", response_model = schemas.Usuario_respuesta)
-def crear_usuario (db: Session = Depends (bd_coneccion.get_db), usuario: schemas.Crear_usuario = Body(...)):
+@router.post ("/registrar", response_model = schemas.UsuarioRespuesta)
+def crear_usuario (db: Session = Depends (bd_coneccion.get_db), usuario: schemas.CrearUsuario = Body(...)):
     # Valida que los campos no estén vacíos
     if not usuario.email:
         return JSONResponse(status_code = status.HTTP_400_BAD_REQUEST, content={"detail": "El campo 'email' no puede estar vacío"})
@@ -26,10 +27,6 @@ def crear_usuario (db: Session = Depends (bd_coneccion.get_db), usuario: schemas
     # hashed_password = bcrypt.hashpw (usuario.password.encode ('utf-8'), bcrypt.gensalt())
     hash = bcrypt.hashpw (usuario.password.encode ('utf-8'), bcrypt.gensalt())
     hashed_password = hash.decode()
-
-    print (hashed_password)
-    print (type(hashed_password))
-
 
     # Guarda el usuario en la base de datos
     db_usuario = crud.crear_usuario (db = db, usuario = usuario, hashed_password = hashed_password)

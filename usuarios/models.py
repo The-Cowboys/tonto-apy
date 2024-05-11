@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 import datetime
 
-from .bd_coneccion import Base
+from settings.bd_coneccion import Base
 
 class Usuario (Base):
     # nombre de la tabla a la que apunta este modelo
