@@ -27,6 +27,9 @@
     03-5) Instalar pydantic para hacer validaciones y serealizadores
         pip install pydantic
 
+    03-6) Instalar python-dotenv para  manegar las variavles de entorno
+        pip install python-dotenv
+
     03-6) Crear un archivo requirements.txt
             pip freeze > requirements.txt 
 
