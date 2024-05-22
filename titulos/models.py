@@ -20,6 +20,3 @@ class Titulo (Base):
 @event.listens_for (Titulo, 'before_update')
 def receive_before_update (mapper, connection, target):
     target.updated = datetime.datetime.utcnow()
-
-# agregar esto al modelo cowboy
-# titulos = relationship("Titulo", back_populates="cowboy")
