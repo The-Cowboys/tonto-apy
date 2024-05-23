@@ -17,8 +17,7 @@ def crear_cowboy (db: Session, cowboy: schemas.CrearCowboy):
 
 # optiene un usuario por mail
 def cowboy_existente (db: Session, cowboy ):
-    if db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).first():
-        return db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).one_or_none() is not None
+    return db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).one_or_none() is not None
 
 # def actualizar_tonto():
 #     Session = sessionmaker(bind=engine)
