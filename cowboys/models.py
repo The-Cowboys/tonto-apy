@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+
 
 from settings.bd_coneccion import Base
 
@@ -11,3 +13,4 @@ class Cowboy (Base):
     email = Column (String, unique = True, index = True)
     tonto = Column (Integer)
 
+    titulos = relationship("Titulo", back_populates="cowboy")

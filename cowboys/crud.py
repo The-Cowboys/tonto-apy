@@ -15,9 +15,14 @@ def crear_cowboy (db: Session, cowboy: schemas.CrearCowboy):
     # db.refresh (db_cowboy)
     return db_cowboy
 
-# optiene un usuario por mail
+# optiene un cowboy por mail
 def cowboy_existente (db: Session, cowboy ):
     return db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).one_or_none() is not None
+
+
+def optener_cowboys(db: Session):
+    return db.query(models.Cowboy).all()
+
 
 # def actualizar_tonto():
 #     Session = sessionmaker(bind=engine)
@@ -27,6 +32,6 @@ def cowboy_existente (db: Session, cowboy ):
 #     cowboys = session.query(Cowboy)
 #     for cowboy in cowboys:
 #         cowboy.tonto = session.query(func.count()).filter_by(id=cowboy.id).scalar()
-    
+
 #     session.commit()
 #     session.close()
