@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
+
 from settings.bd_coneccion import Base
 
 class Cowboy (Base):
