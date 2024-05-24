@@ -15,9 +15,9 @@ def crear_titulo (db: Session, titulo: schemas.CrearTitulo):
     # db.refresh (db_titulo)
     return db_titulo
 
-# optiene un usuario por mail
-def cowboy_existente(db: Session, cowboy_id: int):
-    return db.query(Cowboy).filter(Cowboy.id == cowboy_id).first() is not None
+# revisa si existe el cowboy con ese id
+def cowboy_existente (db: Session, cowboy_id: int ):
+    return db.query (Cowboy).filter (Cowboy.id == cowboy_id).one_or_none() is not None
 
 
 # def actualizar_tonto():
