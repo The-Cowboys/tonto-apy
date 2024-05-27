@@ -20,7 +20,7 @@ def cowboy_existente (db: Session, cowboy ):
     return db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).one_or_none() is not None
 
 
-def optener_cowboys(db: Session):
+def obtener_cowboys(db: Session):
     return db.query(models.Cowboy).all()
 
 

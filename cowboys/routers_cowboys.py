@@ -27,6 +27,11 @@ def crear_cowboy (db: Session = Depends (bd_coneccion.get_db), cowboy: schemas.C
 
     return db_cowboy
 
-@router.post (OPTENER_COWBOYS, response_model = schemas.CowoysRespuesta)
-def optener_cowboy (db: Session = Depends (bd_coneccion.get_db), ):
-    pass
+@router.get (OPTENER_COWBOYS, response_model = list [schemas.CowboysRespuesta])
+def obtener_cowboys (db: Session = Depends (bd_coneccion.get_db)):
+    cowboys = crud.obtener_cowboys (db = db)
+
+    return cowboys
+
+
+

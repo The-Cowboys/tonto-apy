@@ -23,7 +23,7 @@ class CrearCowboyRespuesta (BaseModel):
         orm_mode = True
 
 # respuesta al optener todos los cowboys
-class CowoysRespuesta (BaseModel):
+class CowboysRespuesta (BaseModel):
     id:int
     name:str
 
