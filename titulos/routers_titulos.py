@@ -7,7 +7,7 @@ from settings import bd_coneccion
 
 router = APIRouter()
 
-@router.post ("/Titulos", response_model = schemas.TituloRespuesta)
+@router.post ("/titulos", response_model = schemas.TituloRespuesta)
 def crear_titulo (db: Session = Depends (bd_coneccion.get_db), titulo: schemas.CrearTitulo = Body(...)):
     # Valida que los campos no estén vacíos
     for campo in ["name", "cowboy_id",]:
