@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 
 from usuarios import routers_usuario
+from titulos import routers_titulos
 from cowboys import routers_cowboys
 from titulos import routers_titulos
+
 
 app = FastAPI()
 
