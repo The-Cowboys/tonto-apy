@@ -7,3 +7,5 @@ OBTENER_COWBOYS = "/cowboys"
 OBTENER_COWBOY_ID = "/cowboy/{id}"
 # para editar un cowboy
 EDITAR_COWBOY = "/cowboy/editar/{id}"
+# eliminar un cobwoy
+BORRAR_COWBOY = "/cowboy/borrar/{id}"

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Body, status, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from urls import CREAR_COWBOY, OBTENER_COWBOYS, OBTENER_COWBOY_ID, EDITAR_COWBOY
+from urls import CREAR_COWBOY, OBTENER_COWBOYS, OBTENER_COWBOY_ID, EDITAR_COWBOY, BORRAR_COWBOY
 from cowboys import crud, schemas
 from settings import bd_coneccion
 
@@ -36,8 +36,8 @@ def obtener_cowboys (db: Session = Depends (bd_coneccion.get_db)):
     return cowboys
 
 
-@router.get (OBTENER_COWBOY_ID, response_model=schemas.CowboyRespuesta)
-def obtener_cowboy(id: int, db: Session = Depends (bd_coneccion.get_db)):
+@router.get (OBTENER_COWBOY_ID, response_model = schemas.CowboyRespuesta)
+def obtener_cowboy (id: int, db: Session = Depends (bd_coneccion.get_db)):
     cowboy = crud.cowboy_id (db, id)
 
     if cowboy is None:
@@ -46,7 +46,7 @@ def obtener_cowboy(id: int, db: Session = Depends (bd_coneccion.get_db)):
     return cowboy
 
 
-@router.put (EDITAR_COWBOY, response_model=schemas.CrearCowboyRespuesta)
+@router.put (EDITAR_COWBOY, response_model = schemas.CrearCowboyRespuesta)
 def editar_cowboy (id: int, cowboy_editar: schemas.CowboyEditar, db: Session = Depends(bd_coneccion.get_db)):
     for campo in ["name", "email", "tonto"]:
         if getattr (cowboy_editar, campo) in (0, "", []):
@@ -64,3 +64,11 @@ def editar_cowboy (id: int, cowboy_editar: schemas.CowboyEditar, db: Session = D
 
     return cowboy
 
+@router.delete (BORRAR_COWBOY)
+def obtener_cowboy(id: int, db: Session = Depends (bd_coneccion.get_db)):
+    cowboy = crud.borrar_cowboy (db, id)
+
+    if cowboy is None:
+        raise HTTPException (status_code = 404, detail = "Cowboy no encontrado")
+
+    return JSONResponse (status_code = status.HTTP_200_OK, content = {"detail": "El cowboy fue borrado con exito"})
