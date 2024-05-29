@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 from titulos.schemas import TitulosCowboyRespuesta
 
@@ -31,11 +31,21 @@ class CowboysRespuesta (BaseModel):
         orm_mode = True
 
 # Respuesta al optener un cowboy
-class CowoyRespuesta (BaseModel):
+class CowboyRespuesta (BaseModel):
     id:int
     name:str
+    email:str
     tonto:int
     titulos: List[TitulosCowboyRespuesta] = []
+
+    class Config:
+        orm_mode = True
+
+# editar cowboy
+class CowboyEditar (BaseModel):
+    name: Optional [str] = None
+    email: Optional [str] = None
+    tonto: Optional [int] = None
 
     class Config:
         orm_mode = True

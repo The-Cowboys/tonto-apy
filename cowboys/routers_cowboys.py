@@ -1,12 +1,13 @@
-from fastapi import APIRouter, Depends, Body, status
+from fastapi import APIRouter, Depends, Body, status, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from urls import CREAR_COWBOY, OPTENER_COWBOYS
+from urls import CREAR_COWBOY, OBTENER_COWBOYS, OBTENER_COWBOY_ID, EDITAR_COWBOY
 from cowboys import crud, schemas
 from settings import bd_coneccion
 
 router = APIRouter()
+
 
 @router.post (CREAR_COWBOY, response_model = schemas.CrearCowboyRespuesta)
 def crear_cowboy (db: Session = Depends (bd_coneccion.get_db), cowboy: schemas.CrearCowboy = Body(...)):
@@ -27,11 +28,39 @@ def crear_cowboy (db: Session = Depends (bd_coneccion.get_db), cowboy: schemas.C
 
     return db_cowboy
 
-@router.get (OPTENER_COWBOYS, response_model = list [schemas.CowboysRespuesta])
+
+@router.get (OBTENER_COWBOYS, response_model = list [schemas.CowboysRespuesta])
 def obtener_cowboys (db: Session = Depends (bd_coneccion.get_db)):
     cowboys = crud.obtener_cowboys (db = db)
 
     return cowboys
 
 
+@router.get (OBTENER_COWBOY_ID, response_model=schemas.CowboyRespuesta)
+def obtener_cowboy(id: int, db: Session = Depends (bd_coneccion.get_db)):
+    cowboy = crud.cowboy_id (db, id)
+
+    if cowboy is None:
+        raise HTTPException (status_code = 404, detail = "Cowboy no encontrado")
+
+    return cowboy
+
+
+@router.put (EDITAR_COWBOY, response_model=schemas.CrearCowboyRespuesta)
+def editar_cowboy (id: int, cowboy_editar: schemas.CowboyEditar, db: Session = Depends(bd_coneccion.get_db)):
+    for campo in ["name", "email", "tonto"]:
+        if getattr (cowboy_editar, campo) in (0, "", []):
+            setattr (cowboy_editar, campo, None)
+
+    cowboy_existente = crud.cowboy_existente (db, cowboy_editar)
+
+    if cowboy_existente :
+        return JSONResponse (status_code = status.HTTP_400_BAD_REQUEST, content = {"detail": "Ya existe un Cowboy con ese email"})
+
+    cowboy = crud.editar_cowboy (db, id, cowboy_editar)
+
+    if cowboy is None:
+        raise HTTPException (status_code = 404, detail = "Cowboy no encontrado")
+
+    return cowboy
 
