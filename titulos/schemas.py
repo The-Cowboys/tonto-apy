@@ -10,16 +10,25 @@ class CrearTitulo (BaseModel):
     class Config:
         orm_mode = True
 
-# respuesta
+
+# respuesta al crear un titulo
 class TituloRespuesta (BaseModel):
     id: int
     name: str
-    created: datetime
-    updated: datetime
     cowboy_id: int
 
     class Config:
         orm_mode = True
+
+
+# devuelve todo los titulos
+class Tirulos (BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
 
 # actualizar
 class ActualizarTitulo (BaseModel):

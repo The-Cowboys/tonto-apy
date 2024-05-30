@@ -25,3 +25,10 @@ def crear_titulo (db: Session = Depends (bd_coneccion.get_db), titulo: schemas.C
     db_titulo = crud.crear_titulo (db = db, titulo = titulo,)
 
     return db_titulo
+
+
+@router.get ("/titulos", response_model = list [schemas.Tirulos])
+def obtener_titulos (db: Session = Depends (bd_coneccion.get_db)):
+    titulos = crud.obtener_titulos (db = db)
+
+    return titulos
