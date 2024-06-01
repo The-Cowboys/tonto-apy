@@ -32,3 +32,15 @@ def obtener_titulos (db: Session = Depends (bd_coneccion.get_db)):
     titulos = crud.obtener_titulos (db = db)
 
     return titulos
+
+
+@router.get ("/titulos/{id}", response_model = schemas.TituloRespuesta)
+def obtener_titulo (id: int, db: Session = Depends (bd_coneccion.get_db)):
+    print (132)
+    titulo = crud.titulo_id (db, id)
+    print ("hola", titulo)
+
+    if titulo is None:
+        raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
+
+    return titulo

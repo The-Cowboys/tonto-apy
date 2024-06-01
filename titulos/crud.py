@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
 
 from . import models, schemas
@@ -21,3 +21,8 @@ def cowboy_existente (db: Session, cowboy_id: int ):
 # obtiene todo los titulos
 def obtener_titulos (db: Session):
     return db.query (models.Titulo).all()
+
+# obtiene un titulo por id
+def titulo_id (db: Session, id):
+    return db.query (models.Titulo).filter (models.Titulo.id == id).first()
+

@@ -15,3 +15,7 @@ class CrearCowboyRespuesta (BaseModel):
 
     class Config:
         orm_mode = True
+
+class CowboyTituloRespuesta (BaseModel):
+    name: str
+    id: int

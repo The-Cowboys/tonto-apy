@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
+
+from cowboys.schemas import CowboyTituloRespuesta
 
 # crear Titulo
 class CrearTitulo (BaseModel):
@@ -15,7 +17,9 @@ class CrearTitulo (BaseModel):
 class TituloRespuesta (BaseModel):
     id: int
     name: str
-    cowboy_id: int
+    cowboy: CowboyTituloRespuesta
+    created: datetime
+    updated: datetime
 
     class Config:
         orm_mode = True
@@ -34,6 +38,15 @@ class Tirulos (BaseModel):
 class ActualizarTitulo (BaseModel):
     name: Optional[str] = None
     cowboy_id: Optional[int] = None
+
+    class Config:
+        orm_mode = True
+
+
+# respuesta titulos del cowboy
+class TitulosCowboyRespuesta (BaseModel):
+    id: int
+    name: str
 
     class Config:
         orm_mode = True
