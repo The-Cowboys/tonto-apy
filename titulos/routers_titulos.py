@@ -36,11 +36,26 @@ def obtener_titulos (db: Session = Depends (bd_coneccion.get_db)):
 
 @router.get ("/titulos/{id}", response_model = schemas.TituloRespuesta)
 def obtener_titulo (id: int, db: Session = Depends (bd_coneccion.get_db)):
-    print (132)
     titulo = crud.titulo_id (db, id)
-    print ("hola", titulo)
 
     if titulo is None:
         raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
 
     return titulo
+
+
+@router.put ("/titulos/{id}", response_model = schemas.TituloRespuesta)
+def editar_titulo (id: int, titulo_editar: schemas.ActualizarTitulo, db: Session = Depends(bd_coneccion.get_db)):
+    for campo in ["name", "cowboy_id",]:
+        if getattr (titulo_editar, campo) in ("", []):
+            setattr (titulo_editar, campo, None)
+
+    if titulo_editar.cowboy_id is not None and not crud.cowboy_existente (db, titulo_editar.cowboy_id):
+        raise HTTPException (status_code=status.HTTP_404_NOT_FOUND, detail = f"El cowboy con el id {titulo_editar.cowboy_id} no existe")
+
+    cowboy = crud.editar_titulo (db, id, titulo_editar)
+
+    if cowboy is None:
+        raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
+
+    return cowboy
