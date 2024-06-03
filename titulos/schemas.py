@@ -21,6 +21,14 @@ class TituloRespuesta (BaseModel):
     class Config:
         orm_mode = True
 
+# respuesta titulos del cowboy
+class TitulosCowboyRespuesta (BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
 # actualizar
 class ActualizarTitulo (BaseModel):
     name: Optional[str] = None

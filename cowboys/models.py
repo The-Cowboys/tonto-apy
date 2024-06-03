@@ -13,4 +13,5 @@ class Cowboy (Base):
     email = Column (String, unique = True, index = True)
     tonto = Column (Integer)
 
-    titulos = relationship("Titulo", back_populates="cowboy")
+
+    titulos = relationship ("Titulo", back_populates = "cowboy")
