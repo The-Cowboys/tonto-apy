@@ -47,3 +47,14 @@ def editar_titulo (db: Session, titulo_id: int, titulo_editar: schemas.Actualiza
 
     return titulo
 
+# borrar un titulo
+def borrar_titulo (db: Session, id):
+    titulo = db.query (models.Titulo).filter (models.Titulo.id == id).first()
+
+    if titulo :
+        db.delete (titulo)
+        db.commit()
+
+        return True
+
+    return None
