@@ -27,6 +27,6 @@ def cowboy_existente (db: Session, cowboy ):
 #     cowboys = session.query(Cowboy)
 #     for cowboy in cowboys:
 #         cowboy.tonto = session.query(func.count()).filter_by(id=cowboy.id).scalar()
-    
+
 #     session.commit()
 #     session.close()
