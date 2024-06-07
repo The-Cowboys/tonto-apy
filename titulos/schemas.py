@@ -27,6 +27,7 @@ class TituloRespuesta (BaseModel):
 
 # devuelve todo los titulos
 class Titulos (BaseModel):
+
     id: int
     name: str
 
