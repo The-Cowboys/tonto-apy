@@ -36,7 +36,7 @@ def editar_titulo (db: Session, titulo_id: int, titulo_editar: schemas.Actualiza
     titulo = db.query (models.Titulo).filter (models.Titulo.id == titulo_id).first()
 
     if not titulo:
-        return None
+        return False
 
     for key, value in titulo_editar.dict().items():
         # si el campo es igual a None no lo atualiza
@@ -55,6 +55,6 @@ def borrar_titulo (db: Session, id):
         db.delete (titulo)
         db.commit()
 
-        return True
+        return False
 
-    return None
+    return True

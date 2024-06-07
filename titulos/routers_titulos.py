@@ -55,17 +55,20 @@ def editar_titulo (id: int, titulo_editar: schemas.ActualizarTitulo, db: Session
 
     cowboy = crud.editar_titulo (db, id, titulo_editar)
 
-    if cowboy is None:
+    if cowboy :
+        return cowboy
+
+    else:
         raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
 
-    return cowboy
+
 
 
 @router.delete ("/titulos/{id}")
 def obtener_titulo(id: int, db: Session = Depends (bd_coneccion.get_db)):
     titulo = crud.borrar_titulo (db, id)
 
-    if titulo is None:
+    if titulo :
         raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
 
     return JSONResponse (status_code = status.HTTP_200_OK, content = {"detail": "El titulo fue borrado con exito"})
