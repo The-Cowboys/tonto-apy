@@ -1,5 +1,4 @@
-from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func
+from sqlalchemy.orm import Session
 
 from . import models, schemas
 from cowboys.models import Cowboy
