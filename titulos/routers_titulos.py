@@ -25,3 +25,50 @@ def crear_titulo (db: Session = Depends (bd_coneccion.get_db), titulo: schemas.C
     db_titulo = crud.crear_titulo (db = db, titulo = titulo,)
 
     return db_titulo
+
+
+@router.get ("/titulos", response_model = list [schemas.Titulos])
+def obtener_titulos (db: Session = Depends (bd_coneccion.get_db)):
+    titulos = crud.obtener_titulos (db = db)
+
+    return titulos
+
+
+@router.get ("/titulos/{id}", response_model = schemas.TituloRespuesta)
+def obtener_titulo (id: int, db: Session = Depends (bd_coneccion.get_db)):
+    titulo = crud.titulo_id (db, id)
+
+    if titulo is None:
+        raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
+
+    return titulo
+
+
+@router.put ("/titulos/{id}", response_model = schemas.TituloRespuesta)
+def editar_titulo (id: int, titulo_editar: schemas.ActualizarTitulo, db: Session = Depends(bd_coneccion.get_db)):
+    for campo in ["name", "cowboy_id",]:
+        if getattr (titulo_editar, campo) in ("", []):
+            setattr (titulo_editar, campo, None)
+
+    if titulo_editar.cowboy_id is not None and not crud.cowboy_existente (db, titulo_editar.cowboy_id):
+        raise HTTPException (status_code=status.HTTP_404_NOT_FOUND, detail = f"El cowboy con el id {titulo_editar.cowboy_id} no existe")
+
+    cowboy = crud.editar_titulo (db, id, titulo_editar)
+
+    if cowboy :
+        return cowboy
+
+    else:
+        raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
+
+
+
+
+@router.delete ("/titulos/{id}")
+def obtener_titulo(id: int, db: Session = Depends (bd_coneccion.get_db)):
+    titulo = crud.borrar_titulo (db, id)
+
+    if titulo :
+        raise HTTPException (status_code = 404, detail = "Titulo no encontrado")
+
+    return JSONResponse (status_code = status.HTTP_200_OK, content = {"detail": "El titulo fue borrado con exito"})

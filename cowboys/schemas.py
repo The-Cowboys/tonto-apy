@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from titulos.schemas import TitulosCowboyRespuesta
 
+
 # crear un cowboy
 class CrearCowboy (BaseModel):
     name:str
@@ -11,6 +12,7 @@ class CrearCowboy (BaseModel):
 
     class Config:
         orm_mode = True
+
 
 # respuesta al crear un cowboy
 class CrearCowboyRespuesta (BaseModel):
@@ -22,6 +24,7 @@ class CrearCowboyRespuesta (BaseModel):
     class Config:
         orm_mode = True
 
+
 # respuesta al optener todos los cowboys
 class CowboysRespuesta (BaseModel):
     id:int
@@ -29,6 +32,7 @@ class CowboysRespuesta (BaseModel):
 
     class Config:
         orm_mode = True
+
 
 # Respuesta al optener un cowboy
 class CowboyRespuesta (BaseModel):
@@ -41,6 +45,13 @@ class CowboyRespuesta (BaseModel):
     class Config:
         orm_mode = True
 
+
+# Respuesta al optener los titulos de un cowboy
+class CowboyTituloRespuesta (BaseModel):
+    name: str
+    id: int
+
+
 # editar cowboy
 class CowboyEditar (BaseModel):
     name: Optional [str] = None
@@ -49,3 +60,4 @@ class CowboyEditar (BaseModel):
 
     class Config:
         orm_mode = True
+

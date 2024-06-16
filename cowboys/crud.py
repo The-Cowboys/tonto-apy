@@ -20,7 +20,6 @@ def crear_cowboy (db: Session, cowboy: schemas.CrearCowboy):
 def cowboy_existente (db: Session, cowboy ):
     return db.query (models.Cowboy).filter (models.Cowboy.email == cowboy.email).one_or_none() is not None
 
-
 # obtiene todo los cowboys
 def obtener_cowboys (db: Session):
     return db.query (models.Cowboy).all()
