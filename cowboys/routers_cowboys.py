@@ -35,7 +35,7 @@ def obtener_cowboys (db: Session = Depends (bd_coneccion.get_db)):
     return cowboys
 
 
-@router.get ("/cowboys/id", response_model = schemas.CowboyRespuesta)
+@router.get ("/cowboys/{id}", response_model = schemas.CowboyRespuesta)
 def obtener_cowboy (id: int, db: Session = Depends (bd_coneccion.get_db)):
     cowboy = crud.cowboy_id (db, id)
 
@@ -45,8 +45,9 @@ def obtener_cowboy (id: int, db: Session = Depends (bd_coneccion.get_db)):
     return cowboy
 
 
-@router.put ("/cowboys/id", response_model = schemas.CrearCowboyRespuesta)
+@router.put ("/cowboys/{id}", response_model = schemas.CrearCowboyRespuesta)
 def editar_cowboy (id: int, cowboy_editar: schemas.CowboyEditar, db: Session = Depends(bd_coneccion.get_db)):
+    print ("ruta", cowboy_editar)
     for campo in ["name", "email", "tonto"]:
         if getattr (cowboy_editar, campo) in (0, "", []):
             setattr (cowboy_editar, campo, None)
@@ -63,7 +64,7 @@ def editar_cowboy (id: int, cowboy_editar: schemas.CowboyEditar, db: Session = D
 
     return cowboy
 
-@router.delete ("/cowboys/id")
+@router.delete ("/cowboys/{id}")
 def obtener_cowboy(id: int, db: Session = Depends (bd_coneccion.get_db)):
     cowboy = crud.borrar_cowboy (db, id)
 
