@@ -17,17 +17,6 @@ def seleccionar_tonto (db: Session = Depends (bd_coneccion.get_db)):
 
     return cowboy
 
-# @router.post ("/tonto", response_model = schemas.TontoRespuesta)
-# def guardar_tonto (id: schemas.NuevoTonto, db: Session = Depends (bd_coneccion.get_db)):
-#     cowboy_id = crud.nuevo_tonto (db, id)
-
-#     cowboy_existente = cowboys.crud.cowboy_id (db, id)
-
-#     if cowboy_existente is None:
-#         raise HTTPException (status_code = 404, detail = "No hay cowboys disponibles")
-
-#     return cowboy_id
-
 
 @router.post ("/tonto", response_model = schemas.TontoRespuesta)
 def guardar_tonto (nuevo_tonto: schemas.NuevoTonto, db: Session = Depends (bd_coneccion.get_db)):

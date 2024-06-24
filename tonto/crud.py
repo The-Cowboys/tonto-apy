@@ -22,14 +22,7 @@ def tonto_random (db: Session):
     return random_cowboy
 
 
-# def nuevo_tonto (db: Session, nuevo_tonto: schemas.NuevoTonto):
-#     db_tonto = models.Tonto (cowboy_id = nuevo_tonto.cowboy_id)
-
-#     db.add (db_tonto)
-#     db.commit()
-
-#     return db_tonto
-
+# Crea un nuevo registro en la tabla tonto y le suma mas uno tonto al cowboy
 def nuevo_tonto (db: Session, nuevo_tonto: schemas.NuevoTonto):
     cowboy_existente = crud.cowboy_id (db, nuevo_tonto.cowboy_id)
 
@@ -37,8 +30,11 @@ def nuevo_tonto (db: Session, nuevo_tonto: schemas.NuevoTonto):
         return None
 
     db_tonto = models.Tonto (cowboy_id = nuevo_tonto.cowboy_id)
+
+    cowboy_existente.tonto += 1
+
+    db.add (cowboy_existente)
     db.add (db_tonto)
     db.commit()
-    db.refresh (db_tonto)
 
     return db_tonto
