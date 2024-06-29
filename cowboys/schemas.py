@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
-from titulos.schemas import TitulosCowboyRespuesta
-
 
 # crear un cowboy
 class CrearCowboy (BaseModel):
@@ -11,7 +9,7 @@ class CrearCowboy (BaseModel):
     tonto:int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # respuesta al crear un cowboy
@@ -22,7 +20,7 @@ class CrearCowboyRespuesta (BaseModel):
     tonto:int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # respuesta al optener todos los cowboys
@@ -31,25 +29,17 @@ class CowboysRespuesta (BaseModel):
     name:str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-
-# Respuesta al optener un cowboy
-class CowboyRespuesta (BaseModel):
-    id:int
-    name:str
-    email:str
-    tonto:int
-    titulos: List[TitulosCowboyRespuesta] = []
-
-    class Config:
-        orm_mode = True
 
 
 # Respuesta al optener los titulos de un cowboy
 class CowboyTituloRespuesta (BaseModel):
     name: str
     id: int
+
+    class Config:
+        from_attributes = True
 
 
 # editar cowboy
@@ -59,5 +49,19 @@ class CowboyEditar (BaseModel):
     tonto: Optional [int] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
+
+# esta importacion va ultima para evitar error de importacion circular
+# Respuesta al optener un cowboy
+from titulos.schemas import TitulosCowboyRespuesta
+class CowboyRespuesta (BaseModel):
+    id:int
+    name:str
+    email:str
+    tonto:int
+    # esta entre comillas "" para evitar un error de importacion circular de normal va sin comillas ""
+    titulos: List["TitulosCowboyRespuesta"] = []
+
+    class Config:
+        from_attributes = True

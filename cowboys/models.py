@@ -15,3 +15,4 @@ class Cowboy (Base):
 
 
     titulos = relationship ("Titulo", back_populates = "cowboy")
+    tontos = relationship ("Tonto", back_populates = "cowboy")
