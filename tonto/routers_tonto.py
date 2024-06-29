@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends, Body, status, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import cowboys
@@ -7,6 +6,7 @@ from tonto import crud, schemas
 from settings import bd_coneccion
 
 router = APIRouter()
+
 
 @router.get ("/tonto", response_model = cowboys.schemas.CrearCowboyRespuesta)
 def seleccionar_tonto (db: Session = Depends (bd_coneccion.get_db)):
@@ -25,10 +25,12 @@ def guardar_tonto (nuevo_tonto: schemas.NuevoTonto, db: Session = Depends (bd_co
     if tonto_creado is None:
         if tiempo_restante:
             horas, minutos = divmod (tiempo_restante.seconds // 60, 60)
+
             raise HTTPException(
                 status_code=400,
                 detail=f"El Tonto de hoy ya fue creado. Faltan {horas} horas y {minutos} minutos para que se pueda crear un nuevo Tonto."
             )
+
         else:
             raise HTTPException(status_code=404, detail="No existe ese cowboy")
 
